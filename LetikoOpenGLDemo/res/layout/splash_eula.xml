@@ -1,0 +1,57 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SplashEULAActivity" >
+
+    
+    <TextView 
+        android:id="@+id/textheader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textSize="20sp"
+        android:textColor="@android:color/white"
+        android:paddingTop="15dp"
+        android:layout_alignParentTop="true"
+        android:paddingBottom="15dp"
+        
+    />
+	
+    <WebView android:id="@+id/agreementView"
+			android:layout_width="fill_parent"
+			android:layout_height="match_parent"
+			android:layout_below="@id/textheader"
+			android:layout_marginBottom="48dp"
+			android:background="@color/eulawebviewbackground"
+	/>
+    
+    
+    <RelativeLayout
+	 android:baselineAligned="false"
+	 android:layout_width="match_parent"
+	 android:layout_height="wrap_content"
+	 android:background="#ffe5e5e5"
+	 android:orientation="vertical"
+	 android:layout_alignParentRight="true"
+	 android:layout_centerHorizontal="true"
+  	 android:layout_alignParentBottom="true"
+	 >
+ 
+    
+    <Button 
+        android:id="@+id/agreementButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"    
+        android:paddingLeft="100dp"
+        android:paddingRight="100dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+  		android:textColor="@android:color/white"
+  		android:layout_centerInParent="true"
+  		
+    />
+    </RelativeLayout>
+
+</RelativeLayout>
