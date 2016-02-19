@@ -1,31 +1,29 @@
 package com.letiko.opengldemo.controller;
 
-import java.util.Locale;
-import android.os.AsyncTask;
-//import android.os.Debug;
-import android.os.Bundle;
-import android.os.Handler;
-import android.preference.PreferenceManager;
-import android.webkit.WebView;
-import android.widget.Button;
-import android.widget.LinearLayout;
-//import android.widget.RelativeLayout;
-import android.widget.TextView;
-//import android.widget.Toast;
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-//import android.database.Cursor;
-//import android.util.Log;
+import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-//import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
+import android.webkit.WebView;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
 import com.letiko.opengldemo.R;
+
+//import android.os.Debug;
+//import android.widget.RelativeLayout;
+//import android.widget.Toast;
+//import android.database.Cursor;
+//import android.util.Log;
+//import android.view.WindowManager;
 
 
 public class SplashActivity extends Activity {
@@ -56,19 +54,24 @@ public class SplashActivity extends Activity {
 	@Override
 	protected void onResume(){
         super.onResume();
-        isLogoLetikoEnabled = true;
+		final Runnable showEula = new Runnable() {
+			@Override
+			public void run() {
+				showEULA();}};
+
+		isLogoLetikoEnabled = true;
         isEulaEnabled = true;
 
         animationSet1 = new AnimationSet(true);
         fadein = new AlphaAnimation(0.0f, 1.0f);
 		fadein.setDuration(SPLASH_FADEIN_LENGTH);
 		fadeout = new AlphaAnimation(1.0f, 0.0f);
-        fadeout.setStartOffset(1000);
+					fadeout.setStartOffset(1000);
 		fadeout.setDuration(SPLASH_FADEOUT_LENGTH);
 		animationSet1.addAnimation(fadein);
 		animationSet1.addAnimation(fadeout);
         
-		animationSet2 = new AnimationSet(true);
+		/*animationSet2 = new AnimationSet(true);
         fadein = new AlphaAnimation(0.0f, 1.0f);
 		fadein.setDuration(SPLASH_FADEIN_LENGTH);
 		fadeout = new AlphaAnimation(1.0f, 0.0f);
@@ -81,11 +84,17 @@ public class SplashActivity extends Activity {
   		fadeout.setInterpolator(new DecelerateInterpolator());
 */
 		eulatext = getResources().getString(R.string.eula_text);
-        showSplashLogoLetiko();
+        //showSplashLogoLetiko();
+
+		handler.postDelayed(showEula, SPLASH_DISPLAY_LENGTH);	  //1st handler
+		setContentView(R.layout.splash_logo_letiko);
+		//mainview = (ViewGroup)findViewById(android.R.id.content);
+		llayout = (LinearLayout)findViewById(R.id.splashlogoletiko);
+		llayout.startAnimation(animationSet1);
     }
 	
 
-	protected void showSplashLogoLetiko() {
+	/*protected void showSplashLogoLetiko() {
         final Runnable showEula = new Runnable() {
     			@Override
     			public void run() {
@@ -98,16 +107,16 @@ public class SplashActivity extends Activity {
 	    		llayout = (LinearLayout)findViewById(R.id.splashlogoletiko);
 	    		llayout.startAnimation(animationSet1);
 		} else {showEULA();}  
-	}
+	}*/
 	
 	
 	protected void showEULA() {
-		if (isEulaEnabled) {
+		//if (isEulaEnabled) {
 			Button button;
 			TextView  tv;
 		    //getWindow().clearFlags(WindowManager.LayoutParams.);
 			setContentView(R.layout.splash_eula);
-			mainview = (ViewGroup)findViewById(android.R.id.content);
+			//mainview = (ViewGroup)findViewById(android.R.id.content);
 			//mainview.startAnimation(fadein);
 			eulaview = (WebView)findViewById(R.id.agreementView);
 			eulaview.setBackgroundColor(0xFFe5e5e5);
@@ -128,20 +137,25 @@ public class SplashActivity extends Activity {
 			button.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					goNextActivity();}
-				});
-		}
+					//goNextActivity();}
+					SplashActivity.this.finish();
+					Intent inte = new Intent();
+					//inte.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+					inte.setClass(getBaseContext(), DashboardActivity.class);
+					startActivity(inte);
+				};
+		/*}
 		else {
 			goNextActivity();
-		}	
-	}
+		}*/
+	});
 
-	protected void goNextActivity(){
+	/*protected void goNextActivity(){
 		SplashActivity.this.finish();
 		Intent inte = new Intent();
 		inte.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 		inte.setClass(getBaseContext(), DashboardActivity.class);
-		startActivity(inte);		
-	}
+		startActivity(inte);
+	}*/
 
-}
+}}
